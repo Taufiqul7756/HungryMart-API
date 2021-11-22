@@ -1,0 +1,9 @@
+body {
+  background-color: orange !important;
+  margin: 30px;
+}
+
+#navbar-nav {
+  float: right;
+  font-size: 25px;
+}
