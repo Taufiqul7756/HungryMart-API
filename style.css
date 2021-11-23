@@ -3,7 +3,18 @@ body {
   margin: 30px;
 }
 
-#navbar-nav {
+.navbarNav {
   float: right;
-  font-size: 25px;
+}
+
+#search-section {
+  margin-top: 3%;
+  width: 500px;
+}
+.nav-text {
+  float: right;
+  margin-right: 30%;
+}
+.nav {
+  background-color: orange;
 }
