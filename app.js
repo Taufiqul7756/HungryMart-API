@@ -1,29 +1,69 @@
-fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata")
-  .then((res) => res.json())
-  .then((data) => displayMeal(data));
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//================ Display Searched Meal - OK ================
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-const displayMeal = (meals) => {
-  const mealsDetails = document.getElementById("meals");
-  for (let i = 0; i < meals.length; i++) {
-    const userMenu = meals[i];
+const createMealInfoDiv = (meal, mealInput) => {
+  const mealPhoto = meal.strMealThumb;
+  const mealName = meal.strMeal;
+  const mealInfo = `
+        <a href="#meal-details-section" style="text-decoration: none; color: black;">
+            <div onclick="getMealDetails(${meal.idMeal})" class="card border-0 shadow cursor" style="width: 18rem; border-radius: 10px">
+                <img src="${mealPhoto}" class="card-img-top" style="width: 18rem; border-radius: 10px 10px 0 0" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title text-center">${mealName}</h5>
+                </div>
+            </div>
+        </a>
+        `;
+  const mealInfoSection = document.getElementById("meal-info-section");
+  const mealInfoDiv = document.createElement("div");
+  mealInfoDiv.className =
+    "col-xm-1 col-sm-1 col-md-3 p-3 d-flex justify-content-center";
+  mealInfoDiv.innerHTML = mealInfo;
+  mealInfoSection.appendChild(mealInfoDiv);
+};
 
-    const mealDiv = document.createElement("div");
-    const h3 = document.createElement("h3");
+const showMealInfoDiv = (data, mealInput) => {
+  const meal = data.meals;
 
-    mealClass.className = "strMeal";
-    const mealsInfo = `
-    <h3 class ="mealName" > ${meal.name.common}</h3>
-    
-    `;
-
-    countryDiv.innerHTML = countryInfo;
-
-    countriesDiv.appendChild(countryDiv);
+  // Check If Searched Meal Is Found Or Not
+  if (meal) {
+    meal.forEach((element) => {
+      createMealInfoDiv(element, mealInput);
+    });
+  } else {
+    const noMealFound = document.getElementById("no-meal-found");
+    noMealFound.innerText = `No meal found for ${mealInput}!`;
   }
 };
 
-{
-  /* <p class="capitalName" > Capital: ${country.capital} </p>
-    <p class="regionName" > Region: ${country.region} </p>
-    <button onclick="displayCountry('${country.name.common}')">Details </button> */
-}
+const searchMeal = () => {
+  const mealInput = document.getElementById("meal-input").value;
+
+  // Check If User Searched For Anything
+  if (mealInput) {
+    // Clear the No Meal Found Tag For Every Single New Search
+    const noMealFound = document.getElementById("no-meal-found");
+    noMealFound.innerText = ``;
+
+    // Clear the Meal Info Section For Every Single New Search
+    const mealInfoSection = document.getElementById("meal-info-section");
+    mealInfoSection.innerHTML = ``;
+
+    // Clear the Meal Details Section For Every Single New Search
+    const mealDetailsSection = document.getElementById("meal-details-section");
+    mealDetailsSection.innerHTML = ``;
+
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s= ${mealInput}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        showMealInfoDiv(data, mealInput);
+      });
+  } else {
+    const noMealFound = document.getElementById("no-meal-found");
+    noMealFound.innerText = `You haven't entered anything`;
+  }
+};
+
+document.getElementById("meal-submit").addEventListener("click", searchMeal);
