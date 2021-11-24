@@ -27,7 +27,7 @@ const createMealInfoDiv = (meal, mealInput) => {
 const showMealInfoDiv = (data, mealInput) => {
   const meal = data.meals;
 
-  //check if searched meal is found or not
+  //check if searched meal is found or NOT
   if (meal) {
     meal.forEach((element) => {
       createMealInfoDiv(element, mealInput);
