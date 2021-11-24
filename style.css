@@ -6,7 +6,7 @@
 body {
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
-  background-color: #f8ac55;
+  background-color: #f1ab5a;
 }
 
 /**************** Navbar Styles ****************/
@@ -30,7 +30,7 @@ body {
   width: 12vh;
   height: 6vh;
   border: none;
-  color: #ffffff;
+  color: #f5eaea;
   background-color: #3b2d64;
   border-radius: 0 10px 10px 0;
 }
